@@ -302,7 +302,11 @@ message(msg) {
 
     const user = this.robot.brain.userForId(mmPost.user_id);
     user.room = mmPost.channel_id;
-    user.room_name = msg.data.channel_display_name;
+    if (msg.data.channel_type == 'D'){ // Direct Messages
+        user.room_name = msg.data.channel_display_name
+    } else { // Public Channels, Private Channels
+        user.room_name = msg.data.channel_name
+    }
     user.channel_type = msg.data.channel_type;
 
     let text = mmPost.message;
